@@ -34,7 +34,7 @@ function App() {
             <Route path="/deals" element={<DealsPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            
+
             {/* Protected routes - require authentication */}
             <Route path="/favorites" element={
               <ProtectedRoute>
@@ -56,7 +56,7 @@ function App() {
                 <ProfilePage />
               </ProtectedRoute>
             } />
-            
+
             {/* Admin routes - require admin role */}
             <Route path="/admin" element={
               <AdminRoute>
