@@ -1,0 +1,226 @@
+.admin-users-page {
+  padding: 30px;
+  padding-top: 100px; /* Adjusting for fixed navbar */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.admin-header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.back-to-dashboard {
+  padding: 8px 16px;
+  background-color: #4a89dc;
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.back-to-dashboard:hover {
+  background-color: #3a77c9;
+}
+
+.error-alert {
+  background-color: #ffebee;
+  border-left: 4px solid #f44336;
+  color: #b71c1c;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.error-alert button {
+  background-color: transparent;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.users-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.users-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.users-header h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #333;
+}
+
+.users-table-container {
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table th,
+.users-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.users-table th {
+  background-color: #f8f9fa;
+  font-weight: 500;
+  color: #333;
+}
+
+.users-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.users-table tr.current-user {
+  background-color: #e8f0fe;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.role-badge.admin {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.role-badge.user {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.user-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-button,
+.delete-button,
+.save-button,
+.cancel-button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-button {
+  background-color: #e8f0fe;
+  color: #4a89dc;
+}
+
+.edit-button:hover {
+  background-color: #d0e0fd;
+}
+
+.delete-button {
+  background-color: #ffebee;
+  color: #f44336;
+}
+
+.delete-button:hover {
+  background-color: #ffd7d7;
+}
+
+.save-button {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.save-button:hover {
+  background-color: #d7edd8;
+}
+
+.cancel-button {
+  background-color: #f5f5f5;
+  color: #616161;
+}
+
+.cancel-button:hover {
+  background-color: #e0e0e0;
+}
+
+.self-tag {
+  display: inline-block;
+  padding: 6px 10px;
+  background-color: #eeeeee;
+  color: #616161;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+select {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 0.9rem;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #4a89dc;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.no-users {
+  padding: 30px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}

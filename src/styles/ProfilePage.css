@@ -1,0 +1,189 @@
+.profile-container {
+  min-height: 100vh;
+  padding: 120px 20px 60px;
+  background-color: #f8f9fa;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-header h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.profile-content {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.profile-tabs {
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.tab-button.active {
+  color: #0071c2;
+  border-bottom: 3px solid #0071c2;
+}
+
+.tab-button:hover:not(.active) {
+  background-color: #f8f9fa;
+}
+
+.profile-panel {
+  padding: 2rem;
+}
+
+.profile-form-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.profile-error {
+  background-color: #ffe6e6;
+  color: #d32f2f;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.profile-success {
+  background-color: #e6f7e6;
+  color: #2e7d32;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profile-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.profile-form label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.profile-form input {
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.profile-form input:focus {
+  outline: none;
+  border-color: #0071c2;
+}
+
+.form-action {
+  margin-top: 1rem;
+}
+
+.profile-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #0071c2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-button:hover {
+  background-color: #005fa3;
+}
+
+.profile-button:disabled {
+  background-color: #b3d7ed;
+  cursor: not-allowed;
+}
+
+/* Logout and Admin button styles */
+.logout-container {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.logout-button {
+  padding: 0.8rem 2rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}
+
+.admin-button {
+  padding: 0.8rem 2rem;
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.admin-button:hover {
+  background-color: #b71c1c;
+}
+
+@media (max-width: 768px) {
+  .profile-panel {
+    padding: 1.5rem;
+  }
+  
+  .tab-button {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+  }
+}

@@ -1,0 +1,252 @@
+.hotels-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hotels-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 20px 60px;
+  width: 100%;
+  flex: 1;
+}
+
+.search-summary {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.search-summary h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.search-summary p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.hotel-card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hotel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hotel-image {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hotel-rating {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  font-weight: 500;
+}
+
+.hotel-info {
+  padding: 1.5rem;
+}
+
+.hotel-info h3 {
+  margin: 0 0 0.5rem;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.hotel-location {
+  color: #666;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hotel-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0071c2;
+}
+
+.per-night {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.view-deal-btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  background-color: rgba(0, 113, 194, 0.8);
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.view-deal-btn:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 113, 194, 0.3);
+}
+
+/* No hotels message styling */
+.no-hotels-container {
+  padding: 2.5rem;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 800px;
+  border-radius: var(--radius-lg);
+}
+
+.no-hotels-container h2 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.no-hotels-message {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.available-locations {
+  margin-top: 2rem;
+}
+
+.available-locations h3 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.location-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.location-tag {
+  display: inline-block;
+  background: rgba(0, 113, 194, 0.1);
+  color: var(--primary-color);
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 113, 194, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+.location-tag:hover {
+  background: rgba(0, 113, 194, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 113, 194, 0.15);
+}
+
+@media (max-width: 768px) {
+  .hotels-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .search-summary h1 {
+    font-size: 1.5rem;
+  }
+  
+  .no-hotels-message {
+    font-size: 1rem;
+  }
+  
+  .location-suggestions {
+    gap: 0.5rem;
+  }
+  
+  .location-tag {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Loading spinner */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 113, 194, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-container {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(220, 53, 69, 0.1);
+  border-radius: 10px;
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 1.1rem;
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
