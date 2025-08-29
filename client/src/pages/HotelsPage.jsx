@@ -21,7 +21,7 @@ const HotelsPage = () => {
     {
       id: 1,
       name: "Luxury Hotel",
-      location: "New York, USA",
+      location: "Pune, India",
       rating: 4.8,
       price: 299,
       image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=60"
@@ -29,7 +29,7 @@ const HotelsPage = () => {
     {
       id: 2,
       name: "Seaside Resort",
-      location: "Miami, USA",
+      location: "Delhi, India",
       rating: 4.6,
       price: 199,
       image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=60"
@@ -37,7 +37,7 @@ const HotelsPage = () => {
     {
       id: 3,
       name: "Mountain View Lodge",
-      location: "Denver, USA",
+      location: "Shimla, India",
       rating: 4.7,
       price: 149,
       image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=60"
@@ -45,7 +45,7 @@ const HotelsPage = () => {
     {
       id: 4,
       name: "Urban Boutique Hotel",
-      location: "Chicago, USA",
+      location: "Goa, India",
       rating: 4.5,
       price: 259,
       image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=60"
@@ -53,7 +53,7 @@ const HotelsPage = () => {
     {
       id: 5,
       name: "Historic Inn",
-      location: "Boston, USA",
+      location: "Rajasthan, India",
       rating: 4.4,
       price: 189,
       image: "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?auto=format&fit=crop&w=800&q=60"
@@ -61,7 +61,7 @@ const HotelsPage = () => {
     {
       id: 6,
       name: "Bayside Hotel",
-      location: "San Francisco, USA",
+      location: "Goa, India",
       rating: 4.9,
       price: 299,
       image: "https://images.unsplash.com/photo-1519449556851-5720b33024e7?auto=format&fit=crop&w=800&q=60"
@@ -196,35 +196,35 @@ const HotelsPage = () => {
     const guests = searchParams.get('guests') || 2;
 
     setSearchInfo({ location, checkIn, checkOut, guests });
-    
+
     // Filter hotels by location
-    const filteredHotels = sampleHotels.filter(hotel => 
+    const filteredHotels = sampleHotels.filter(hotel =>
       hotel.location.toLowerCase().includes(location.toLowerCase())
     );
-    
+
     if (filteredHotels.length === 0 && location) {
       setNoHotelsMessage(`No hotels are currently available in ${location}.`);
     } else {
       setNoHotelsMessage('');
     }
-    
+
     setHotels(filteredHotels);
   }, [searchParams]);
 
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     }).format(date);
   };
 
   return (
     <div className="hotels-page">
       <Header />
-      
+
       <div className="hotels-container">
         <div className="search-summary">
           <h1>Hotels in {searchInfo.location || 'All Destinations'}</h1>
@@ -254,7 +254,7 @@ const HotelsPage = () => {
                 <h3>{hotel.name}</h3>
                 <p className="hotel-location">{hotel.location}</p>
                 <div className="hotel-price">
-                  <span className="price">${hotel.price}</span>
+                  <span className="price">₹{hotel.price}</span>
                   <span className="per-night">per night</span>
                 </div>
                 <Link to={`/booking/${hotel.id}`} className="view-deal-btn">View Deal</Link>
