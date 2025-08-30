@@ -1,5 +1,5 @@
 .footer {
-  background-color: #1a1a1a;
+  background-color: #4E6688;
   color: #f5f5f5;
   padding: 4rem 0 2rem;
 }
@@ -27,7 +27,7 @@
   bottom: -8px;
   width: 40px;
   height: 2px;
-  background-color: #0071c2;
+  background-color: #533B4D;
 }
 
 .footer-section p {
@@ -53,7 +53,7 @@
 }
 
 .footer-links a:hover {
-  color: #0071c2;
+  color: #533B4D;
 }
 
 .subscribe-form {
@@ -122,7 +122,7 @@
   .footer-container {
     grid-template-columns: 1fr;
   }
-  
+
   .footer-bottom {
     flex-direction: column;
     text-align: center;

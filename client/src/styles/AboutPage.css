@@ -14,7 +14,10 @@
 .about-page-container {
   min-height: 100vh;
   padding: 40px 20px 80px;
-  background: linear-gradient(135deg, #e0f7ff 0%, #f0f9ff 50%, #d5f3ff 100%);
+
+  background: linear-gradient(135deg, #F1E7E7 0%, #FFF2EB 50%, #FFE8CD 100%);
+
+  /* background: linear-gradient(135deg, #e0f7ff 0%, #f0f9ff 50%, #d5f3ff 100%); */
   position: relative;
   overflow: hidden;
 }
@@ -306,23 +309,23 @@
     grid-template-columns: 1fr;
     gap: 30px;
   }
-  
+
   .about-section-content.reverse {
     direction: ltr;
   }
-  
+
   .about-header h1 {
     font-size: 2.5rem;
   }
-  
+
   .about-header p {
     font-size: 1.3rem;
   }
-  
+
   .about-section h2 {
     font-size: 2rem;
   }
-  
+
   .cta-section h2 {
     font-size: 2rem;
   }
@@ -332,23 +335,23 @@
   .about-section {
     padding: 30px 20px;
   }
-  
+
   .about-image {
     height: 300px;
   }
-  
+
   .about-header {
     padding: 40px 20px;
   }
-  
+
   .about-header h1 {
     font-size: 2rem;
   }
-  
+
   .about-header p {
     font-size: 1.1rem;
   }
-  
+
   .team-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
@@ -358,15 +361,15 @@
   .about-header {
     padding: 30px 15px;
   }
-  
+
   .about-header h1 {
     font-size: 1.8rem;
   }
-  
+
   .about-image {
     height: 250px;
   }
-  
+
   .team-grid {
     grid-template-columns: 1fr;
   }

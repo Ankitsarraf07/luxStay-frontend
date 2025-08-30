@@ -4,11 +4,11 @@
   align-items: center;
   min-height: 100vh;
   padding: 120px 20px 60px;
-  background-color: #f8f9fa;
+  background-color: #ebe5b8;
 }
 
 .auth-form-container {
-  background-color: white;
+  background-color: #d1ac7c;
   border-radius: 10px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   padding: 3rem;
@@ -134,6 +134,11 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

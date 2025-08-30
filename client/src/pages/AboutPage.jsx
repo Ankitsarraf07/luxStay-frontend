@@ -12,19 +12,19 @@ const AboutPage = () => {
           <h1>About LuxStay Hotels</h1>
           <p>Luxury accommodations for memorable experiences</p>
         </div>
-        
+
         <div className="about-content">
           <section className="about-section glass-effect">
             <h2>Our Story</h2>
             <div className="about-section-content">
               <div className="about-text">
-                <p>Founded in 2010, LuxStay Hotels began with a simple vision: to create a hotel experience that combines luxury, comfort, and authentic local experiences. What started as a single boutique hotel in Manhattan has grown into a collection of premium properties across the globe.</p>
+                <p>Founded in 2025, LuxStay Hotels began with a simple vision: to create a hotel experience that combines luxury, comfort, and authentic local experiences. What started as a single boutique hotel in Manhattan has grown into a collection of premium properties across the globe.</p>
                 <p>Our journey has been driven by a passion for hospitality and a commitment to excellence. We believe that a great hotel stay is more than just a comfortable bed – it's about creating memories that last a lifetime.</p>
               </div>
               <div className="about-image story-image"></div>
             </div>
           </section>
-          
+
           <section className="about-section glass-effect">
             <h2>Our Philosophy</h2>
             <div className="about-section-content reverse">
@@ -40,7 +40,7 @@ const AboutPage = () => {
               </div>
             </div>
           </section>
-          
+
           <section className="about-section glass-effect">
             <h2>Our Commitment</h2>
             <div className="about-section-content">
@@ -57,7 +57,7 @@ const AboutPage = () => {
               <div className="about-image commitment-image"></div>
             </div>
           </section>
-          
+
           <section className="team-section glass-effect">
             <h2>Our Leadership Team</h2>
             <div className="team-grid">
@@ -67,21 +67,21 @@ const AboutPage = () => {
                 <p className="member-title">Chief Executive Officer</p>
                 <p>With over 20 years of experience in luxury hospitality, Sarah leads our global operations with vision and passion.</p>
               </div>
-              
+
               <div className="team-member">
                 <div className="member-image coo-image"></div>
                 <h3>Michael Chen</h3>
                 <p className="member-title">Chief Operations Officer</p>
                 <p>Michael ensures that every LuxStay property maintains our high standards of service and quality.</p>
               </div>
-              
+
               <div className="team-member">
                 <div className="member-image design-image"></div>
                 <h3>Emma Rodriguez</h3>
                 <p className="member-title">Head of Design</p>
                 <p>Emma's innovative approach to hotel design creates spaces that are both beautiful and functional.</p>
               </div>
-              
+
               <div className="team-member">
                 <div className="member-image experience-image"></div>
                 <h3>James Park</h3>
@@ -91,7 +91,7 @@ const AboutPage = () => {
             </div>
           </section>
         </div>
-        
+
         <div className="cta-section glass-effect">
           <h2>Experience LuxStay For Yourself</h2>
           <p>Discover the perfect blend of luxury, comfort, and authentic experiences at our hotels worldwide.</p>
