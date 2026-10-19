@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import API from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import '../styles/AdminMessages.css';
 
@@ -15,9 +15,7 @@ const AdminMessagesPage = () => {
     const fetchMessages = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/api/v1/admin/messages', {
-          withCredentials: true
-        });
+        const response = await API.get('/admin/messages');
         
         if (response.data.success) {
           setMessages(response.data.data);
@@ -39,10 +37,8 @@ const AdminMessagesPage = () => {
 
   const handleMarkAsRead = async (id, isRead) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/v1/admin/messages/${id}`, {
+      const response = await API.put(`/admin/messages/${id}`, {
         isRead: !isRead
-      }, {
-        withCredentials: true
       });
 
       // Update messages in state
@@ -69,9 +65,7 @@ const AdminMessagesPage = () => {
     }
 
     try {
-      const response = await axios.delete(`http://localhost:5000/api/v1/admin/messages/${id}`, {
-        withCredentials: true
-      });
+      const response = await API.delete(`/admin/messages/${id}`);
 
       // Remove message from state
       if (response.data.success) {
