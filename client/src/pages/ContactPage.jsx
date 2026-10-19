@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import API from '../services/api';
 import '../styles/ContactPage.css';
 
 const ContactPage = () => {
@@ -29,21 +30,14 @@ const ContactPage = () => {
     setError('');
     
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api/v1'}/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          subject: formData.subject ? formData.subject.trim() : 'New message from LuxStay Contact Form',
-          message: formData.message.trim()
-        }),
+      const response = await API.post('/contact', {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        subject: formData.subject ? formData.subject.trim() : 'New message from LuxStay Contact Form',
+        message: formData.message.trim()
       });
       
-      const data = await response.json();
+      const data = response.data;
       
       if (data.success) {
         setSuccess(true);

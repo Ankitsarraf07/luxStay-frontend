@@ -79,5 +79,14 @@ export const updatePassword = async (passwordData) => {
 // Check if user is logged in
 export const isAuthenticated = () => {
   const user = localStorage.getItem('user');
-  return user ? JSON.parse(user) : null;
+  if (!user) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(user);
+  } catch {
+    localStorage.removeItem('user');
+    return null;
+  }
 };

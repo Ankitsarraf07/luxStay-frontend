@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import API from '../services/api';
 import '../styles/AdminUsers.css';
 
 const AdminUsersPage = () => {
@@ -16,9 +16,7 @@ const AdminUsersPage = () => {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/v1/admin/users', {
-          withCredentials: true
-        });
+        const response = await API.get('/admin/users');
         
         setUsers(response.data.data);
         setLoading(false);
@@ -44,10 +42,8 @@ const AdminUsersPage = () => {
 
   const handleSaveRole = async () => {
     try {
-      await axios.put(`/api/v1/admin/user/${editingUser._id}`, {
+      await API.put(`/admin/user/${editingUser._id}`, {
         role: newRole
-      }, {
-        withCredentials: true
       });
 
       // Update users in state
@@ -71,9 +67,7 @@ const AdminUsersPage = () => {
     }
 
     try {
-      await axios.delete(`/api/v1/admin/user/${userId}`, {
-        withCredentials: true
-      });
+      await API.delete(`/admin/user/${userId}`);
 
       // Remove user from state
       setUsers(users.filter(u => u._id !== userId));

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { NAV_LINKS, HOTEL_NAME } from '../utils/constants';
 import { useAuth } from '../context/AuthContext';
-import Logo from '../utils/Images/Logo.png';
 import '../styles/Header.css';
 
 const Header = () => {

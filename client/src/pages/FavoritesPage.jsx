@@ -8,11 +8,11 @@ import Footer from '../components/Footer';
 import '../styles/FavoritesPage.css';
 
 const FavoritesPage = () => {
-  const { user, refreshUserData } = useAuth();
+  const { refreshUserData } = useAuth();
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  
+
   // Fetch user favorites on component mount
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -27,25 +27,25 @@ const FavoritesPage = () => {
         setLoading(false);
       }
     };
-    
+
     fetchFavorites();
   }, []);
-  
+
   // Handle removing a hotel from favorites
   const handleRemoveFavorite = async (hotelId) => {
     try {
       await removeFromFavorites(hotelId);
-      
+
       // Remove from local state
       setFavorites(favorites.filter(hotel => hotel._id !== hotelId));
-      
+
       // Refresh user data in context
       await refreshUserData();
     } catch (error) {
       console.error('Failed to remove from favorites:', error);
     }
   };
-  
+
   return (
     <>
       <Header />
@@ -53,7 +53,7 @@ const FavoritesPage = () => {
         <div className="favorites-header">
           <h1>My Favorite Hotels</h1>
         </div>
-        
+
         <div className="favorites-content">
           {loading ? (
             <div className="loading-container">
@@ -72,29 +72,29 @@ const FavoritesPage = () => {
             <div className="favorites-grid">
               {favorites.map(hotel => (
                 <div className="favorite-card" key={hotel._id}>
-                  <div 
-                    className="favorite-image" 
+                  <div
+                    className="favorite-image"
                     style={{ backgroundImage: `url(${hotel?.images?.[0] || hotel?.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=60'})` }}
                   >
-                    <button 
-                      className="remove-favorite" 
+                    <button
+                      className="remove-favorite"
                       onClick={() => handleRemoveFavorite(hotel._id)}
                       aria-label="Remove from favorites"
                     >
                       <i className="fas fa-heart"></i>
                     </button>
                   </div>
-                  
+
                   <div className="favorite-details">
                     <h3>{hotel.name}</h3>
                     <p className="favorite-location">{hotel.location}</p>
                     <div className="favorite-rating">
                       <span className="rating-value">{hotel.rating}</span>
                       <span className="rating-text">
-                        {hotel.rating >= 4.5 ? 'Exceptional' : 
-                         hotel.rating >= 4 ? 'Excellent' : 
-                         hotel.rating >= 3.5 ? 'Very Good' : 
-                         hotel.rating >= 3 ? 'Good' : 'Average'}
+                        {hotel.rating >= 4.5 ? 'Exceptional' :
+                          hotel.rating >= 4 ? 'Excellent' :
+                            hotel.rating >= 3.5 ? 'Very Good' :
+                              hotel.rating >= 3 ? 'Good' : 'Average'}
                       </span>
                       <span className="review-count">({hotel.numReviews} reviews)</span>
                     </div>

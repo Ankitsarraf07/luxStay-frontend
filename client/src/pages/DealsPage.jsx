@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getFeaturedHotels } from '../services/hotelService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -34,7 +34,7 @@ const DealsPage = () => {
   const calculateDiscountedPrice = (originalPrice, discountPercentage) => {
     return originalPrice - (originalPrice * (discountPercentage / 100));
   };
-  
+
   // Handle view deal click
   const handleViewDeal = (hotel, discount, discountedPrice) => {
     setSelectedDeal({
@@ -44,17 +44,17 @@ const DealsPage = () => {
     });
     setShowDealModal(true);
   };
-  
+
   // Close modal
   const closeModal = () => {
     setShowDealModal(false);
   };
-  
+
   // Book now handler
   const handleBookNow = (hotelId) => {
     navigate(`/booking/${hotelId}`);
   };
-  
+
   // View details handler
   const handleViewDetails = (hotelId) => {
     navigate(`/hotel/${hotelId}`);
@@ -73,7 +73,7 @@ const DealsPage = () => {
 
         <div className="deals-content">
           <h2 className="deals-section-title">Hot Deals</h2>
-          
+
           {loading ? (
             <div className="deals-loading">
               <div className="loader"></div>
@@ -94,7 +94,7 @@ const DealsPage = () => {
                 // Generate random discount between 10% and 30%
                 const discount = Math.floor(Math.random() * 21) + 10;
                 const discountedPrice = calculateDiscountedPrice(hotel.price, discount);
-                
+
                 return (
                   <div key={hotel._id} className="deal-card">
                     <div className="deal-badge">{discount}% OFF</div>
@@ -126,7 +126,7 @@ const DealsPage = () => {
                         <i className="fas fa-clock"></i>
                         <span>Limited time offer!</span>
                       </div>
-                      <button 
+                      <button
                         className="view-deal-btn"
                         onClick={() => handleViewDeal(hotel, discount, discountedPrice.toFixed(2))}
                       >
@@ -151,7 +151,7 @@ const DealsPage = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Deal Details Modal */}
       {showDealModal && selectedDeal && (
         <div className="deal-modal-overlay" onClick={closeModal}>
@@ -159,21 +159,21 @@ const DealsPage = () => {
             <button className="close-modal" onClick={closeModal}>
               &times;
             </button>
-            
+
             <div className="deal-modal-content">
               <div className="deal-modal-image">
                 <img src={selectedDeal.images[0]} alt={selectedDeal.name} />
                 <div className="deal-modal-badge">{selectedDeal.discount}% OFF</div>
               </div>
-              
+
               <div className="deal-modal-details">
                 <h2>{selectedDeal.name}</h2>
-                
+
                 <div className="deal-modal-location">
                   <i className="fas fa-map-marker-alt"></i>
                   <span>{selectedDeal.location}</span>
                 </div>
-                
+
                 <div className="deal-modal-rating">
                   {Array(Math.round(selectedDeal.rating))
                     .fill()
@@ -182,7 +182,7 @@ const DealsPage = () => {
                     ))}
                   <span className="rating-number">({selectedDeal.rating})</span>
                 </div>
-                
+
                 <div className="deal-modal-features">
                   <div className="feature">
                     <i className="fas fa-bed"></i>
@@ -197,11 +197,11 @@ const DealsPage = () => {
                     <span>Restaurant</span>
                   </div>
                 </div>
-                
+
                 <div className="deal-modal-description">
                   <p>{selectedDeal.description}</p>
                 </div>
-                
+
                 <div className="deal-modal-pricing">
                   <div className="price-details">
                     <div className="original">
@@ -217,21 +217,21 @@ const DealsPage = () => {
                       <span className="price">${selectedDeal.discountedPrice}</span>
                     </div>
                   </div>
-                  
+
                   <div className="deal-expiration">
                     <i className="fas fa-clock"></i>
                     <span>Offer expires in 48 hours</span>
                   </div>
                 </div>
-                
+
                 <div className="deal-modal-actions">
-                  <button 
+                  <button
                     className="view-details-btn"
                     onClick={() => handleViewDetails(selectedDeal._id)}
                   >
                     View Details
                   </button>
-                  <button 
+                  <button
                     className="book-now-btn"
                     onClick={() => handleBookNow(selectedDeal._id)}
                   >
@@ -243,7 +243,7 @@ const DealsPage = () => {
           </div>
         </div>
       )}
-      
+
       <Footer />
     </>
   );

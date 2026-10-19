@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import { getHotelDetails } from '../services/hotelService';
 import { createBooking, calculateBookingPrice } from '../services/bookingService';
 import Header from '../components/Header';
@@ -10,18 +9,14 @@ import '../styles/BookingPage.css';
 const BookingPage = () => {
   const { hotelId } = useParams();
   const [searchParams] = useSearchParams();
-  const { user } = useAuth();
   const navigate = useNavigate();
-  
-  // Get roomType from URL params
+
   const roomTypeParam = searchParams.get('roomType');
-  
-  // State for hotel and booking details
+
   const [hotel, setHotel] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [selectedRoom, setSelectedRoom] = useState(null);
   const [bookingDetails, setBookingDetails] = useState({
     checkInDate: '',
     checkOutDate: '',
@@ -42,25 +37,24 @@ const BookingPage = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1); // 1: Room & Date, 2: Guest Info, 3: Payment
-  
+
   // Fetch hotel details on component mount
   useEffect(() => {
     const fetchHotelDetails = async () => {
       try {
         setLoading(true);
         setError('');
-        
+
         // Try to fetch hotel details, but if it fails, use sample data
         try {
           const { hotel } = await getHotelDetails(hotelId);
           if (hotel) {
             setHotel(hotel);
-            
+
             // Find selected room if roomType is provided
             if (roomTypeParam && hotel.roomTypes) {
               const room = hotel.roomTypes.find(room => room.name === roomTypeParam);
               if (room) {
-                setSelectedRoom(room);
                 setBookingDetails(prev => ({
                   ...prev,
                   roomType: room.name
@@ -232,16 +226,15 @@ const BookingPage = () => {
               ]
             }
           ];
-          
+
           const sampleHotel = sampleHotels.find(h => h.id === parseInt(hotelId));
           if (sampleHotel) {
             setHotel(sampleHotel);
-            
+
             // Find selected room if roomType is provided
             if (roomTypeParam && sampleHotel.roomTypes) {
               const room = sampleHotel.roomTypes.find(room => room.name === roomTypeParam);
               if (room) {
-                setSelectedRoom(room);
                 setBookingDetails(prev => ({
                   ...prev,
                   roomType: room.name
@@ -259,12 +252,12 @@ const BookingPage = () => {
         setLoading(false);
       }
     };
-    
+
     if (hotelId) {
       fetchHotelDetails();
     }
   }, [hotelId, roomTypeParam]);
-  
+
   // Calculate total price whenever booking details change
   useEffect(() => {
     if (hotel && bookingDetails.roomType && bookingDetails.checkInDate && bookingDetails.checkOutDate) {
@@ -277,11 +270,11 @@ const BookingPage = () => {
       setTotalPrice(price);
     }
   }, [hotel, bookingDetails]);
-  
+
   // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
+
     if (name === 'adults' || name === 'children') {
       setBookingDetails(prev => ({
         ...prev,
@@ -297,7 +290,7 @@ const BookingPage = () => {
       }));
     }
   };
-  
+
   // Handle card details input changes
   const handleCardDetailsChange = (e) => {
     const { name, value } = e.target;
@@ -306,7 +299,7 @@ const BookingPage = () => {
       [name]: value
     }));
   };
-  
+
   // Format card number with spaces
   const formatCardNumber = (value) => {
     if (!value) return value;
@@ -314,17 +307,16 @@ const BookingPage = () => {
     const matches = digitsOnly.match(/.{1,4}/g);
     return matches ? matches.join(' ').substr(0, 19) : '';
   };
-  
+
   // Handle room type selection
   const handleRoomSelect = (roomName) => {
     const room = hotel.roomTypes.find(room => room.name === roomName);
-    setSelectedRoom(room);
     setBookingDetails(prev => ({
       ...prev,
-      roomType: roomName
+      roomType: room ? room.name : roomName
     }));
   };
-  
+
   // Navigate through booking steps
   const nextStep = () => {
     if (currentStep === 1) {
@@ -333,7 +325,7 @@ const BookingPage = () => {
         setError('Please select check-in and check-out dates.');
         return;
       }
-      
+
       if (!bookingDetails.roomType) {
         setError('Please select a room type.');
         return;
@@ -350,49 +342,49 @@ const BookingPage = () => {
       setCurrentStep(3);
     }
   };
-  
+
   const prevStep = () => {
     setError('');
     setCurrentStep(currentStep - 1);
   };
-  
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validate payment details
     if (paymentMethod === 'credit-card') {
       if (!cardDetails.cardNumber || !cardDetails.cardName || !cardDetails.expiryDate || !cardDetails.cvv) {
         setError('Please fill in all card details.');
         return;
       }
-      
+
       if (cardDetails.cardNumber.replace(/\s/g, '').length < 16) {
         setError('Please enter a valid card number.');
         return;
       }
-      
+
       if (cardDetails.cvv.length < 3) {
         setError('Please enter a valid CVV.');
         return;
       }
     }
-    
+
     // Validate dates
     const checkIn = new Date(bookingDetails.checkInDate);
     const checkOut = new Date(bookingDetails.checkOutDate);
     const today = new Date();
-    
+
     if (checkIn < today) {
       setError('Check-in date cannot be in the past');
       return;
     }
-    
+
     if (checkOut <= checkIn) {
       setError('Check-out date must be after check-in date');
       return;
     }
-    
+
     // Prepare booking data
     const bookingData = {
       hotel: hotelId,
@@ -407,23 +399,23 @@ const BookingPage = () => {
         status: 'confirmed'
       }
     };
-    
+
     try {
       setError('');
       setIsSubmitting(true);
-      
+
       // Try to create booking via API
       try {
         const { booking } = await createBooking(bookingData);
-        
+
         // Show success message
         setSuccess('Booking confirmed! Redirecting to your bookings...');
-        
+
         // Redirect to bookings page after 2 seconds
         setTimeout(() => {
-          navigate('/bookings', { 
-            state: { 
-              success: true, 
+          navigate('/bookings', {
+            state: {
+              success: true,
               message: 'Booking confirmed successfully!',
               bookingId: booking._id
             }
@@ -431,7 +423,7 @@ const BookingPage = () => {
         }, 2000);
       } catch (apiError) {
         console.error('API Error during booking:', apiError);
-        
+
         // Create a sample booking as fallback
         const sampleBooking = {
           _id: `BOOK-${Math.floor(Math.random() * 10000)}`,
@@ -452,21 +444,21 @@ const BookingPage = () => {
           bookingStatus: 'confirmed',
           createdAt: new Date().toISOString()
         };
-        
+
         // Store in localStorage as a fallback mechanism
         try {
           const storedBookings = JSON.parse(localStorage.getItem('myBookings') || '[]');
           storedBookings.push(sampleBooking);
           localStorage.setItem('myBookings', JSON.stringify(storedBookings));
-          
+
           // Show success message
           setSuccess('Booking confirmed! Redirecting to your bookings...');
-          
+
           // Redirect to bookings page after 2 seconds
           setTimeout(() => {
-            navigate('/bookings', { 
-              state: { 
-                success: true, 
+            navigate('/bookings', {
+              state: {
+                success: true,
                 message: 'Booking confirmed successfully!',
                 bookingId: sampleBooking._id
               }
@@ -482,15 +474,15 @@ const BookingPage = () => {
       setIsSubmitting(false);
     }
   };
-  
+
   // Get minimum date for check-in (today)
   const today = new Date().toISOString().split('T')[0];
-  
+
   // Get minimum date for check-out (day after check-in or today)
-  const minCheckOutDate = bookingDetails.checkInDate 
+  const minCheckOutDate = bookingDetails.checkInDate
     ? new Date(new Date(bookingDetails.checkInDate).getTime() + 86400000).toISOString().split('T')[0]
     : today;
-  
+
   if (loading) {
     return (
       <>
@@ -503,7 +495,7 @@ const BookingPage = () => {
       </>
     );
   }
-  
+
   if (error && !hotel) {
     return (
       <>
@@ -519,11 +511,11 @@ const BookingPage = () => {
       </>
     );
   }
-  
+
   if (!hotel) {
     return null;
   }
-  
+
   return (
     <>
       <Header />
@@ -532,7 +524,7 @@ const BookingPage = () => {
           <h1>Book Your Stay</h1>
           <p>Complete the form below to confirm your reservation</p>
         </div>
-        
+
         <div className="booking-content">
           {/* Booking Steps */}
           <div className="booking-steps">
@@ -551,12 +543,13 @@ const BookingPage = () => {
               <div className="step-name">Payment</div>
             </div>
           </div>
-          
+
           <div className="booking-layout">
             <div className="booking-form-container">
               <form className="booking-form" onSubmit={handleSubmit}>
+                {success && <div className="success-message">{success}</div>}
                 {error && <div className="error-message">{error}</div>}
-                
+
                 {/* Step 1: Room & Dates */}
                 {currentStep === 1 && (
                   <div className="form-step">
@@ -578,12 +571,12 @@ const BookingPage = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="form-section">
                       <h3>Room Selection</h3>
                       <div className="room-list">
                         {hotel.roomTypes?.map((room) => (
-                          <div 
+                          <div
                             key={room.name}
                             className={`room-item ${bookingDetails.roomType === room.name ? 'selected' : ''}`}
                             onClick={() => handleRoomSelect(room.name)}
@@ -608,7 +601,7 @@ const BookingPage = () => {
                         ))}
                       </div>
                     </div>
-                    
+
                     <div className="form-section">
                       <h3>Booking Dates</h3>
                       <div className="date-inputs">
@@ -638,7 +631,7 @@ const BookingPage = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="form-actions">
                       <button type="button" className="next-btn" onClick={nextStep}>
                         Continue to Guest Information
@@ -646,7 +639,7 @@ const BookingPage = () => {
                     </div>
                   </div>
                 )}
-                
+
                 {/* Step 2: Guest Information */}
                 {currentStep === 2 && (
                   <div className="form-step">
@@ -680,7 +673,7 @@ const BookingPage = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="form-section">
                       <h3>Special Requests</h3>
                       <div className="form-group">
@@ -694,7 +687,7 @@ const BookingPage = () => {
                         ></textarea>
                       </div>
                     </div>
-                    
+
                     <div className="form-actions">
                       <button type="button" className="back-btn" onClick={prevStep}>
                         Back
@@ -705,14 +698,14 @@ const BookingPage = () => {
                     </div>
                   </div>
                 )}
-                
+
                 {/* Step 3: Payment */}
                 {currentStep === 3 && (
                   <div className="form-step">
                     <div className="form-section">
                       <h3>Payment Method</h3>
                       <div className="payment-methods">
-                        <div 
+                        <div
                           className={`payment-method ${paymentMethod === 'credit-card' ? 'selected' : ''}`}
                           onClick={() => setPaymentMethod('credit-card')}
                         >
@@ -724,8 +717,8 @@ const BookingPage = () => {
                             <p>Pay securely with your credit card</p>
                           </div>
                         </div>
-                        
-                        <div 
+
+                        <div
                           className={`payment-method ${paymentMethod === 'paypal' ? 'selected' : ''}`}
                           onClick={() => setPaymentMethod('paypal')}
                         >
@@ -739,7 +732,7 @@ const BookingPage = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     {paymentMethod === 'credit-card' && (
                       <div className="form-section">
                         <h3>Card Details</h3>
@@ -800,7 +793,7 @@ const BookingPage = () => {
                         </div>
                       </div>
                     )}
-                    
+
                     {paymentMethod === 'paypal' && (
                       <div className="form-section paypal-info">
                         <p>You will be redirected to PayPal to complete your payment securely.</p>
@@ -809,7 +802,7 @@ const BookingPage = () => {
                         </div>
                       </div>
                     )}
-                    
+
                     <div className="form-actions">
                       <button type="button" className="back-btn" onClick={prevStep}>
                         Back
@@ -822,19 +815,19 @@ const BookingPage = () => {
                 )}
               </form>
             </div>
-            
+
             {/* Booking Summary */}
             <div className="booking-summary">
               <div className="summary-card">
                 <h3>Booking Summary</h3>
-                
+
                 {bookingDetails.roomType && (
                   <div className="summary-item">
                     <div className="summary-label">Room Type</div>
                     <div className="summary-value">{bookingDetails.roomType}</div>
                   </div>
                 )}
-                
+
                 {bookingDetails.checkInDate && bookingDetails.checkOutDate && (
                   <>
                     <div className="summary-item">
@@ -853,7 +846,7 @@ const BookingPage = () => {
                     </div>
                   </>
                 )}
-                
+
                 <div className="summary-item">
                   <div className="summary-label">Guests</div>
                   <div className="summary-value">
@@ -861,7 +854,7 @@ const BookingPage = () => {
                     {bookingDetails.guests.children > 0 && `, ${bookingDetails.guests.children} ${bookingDetails.guests.children === 1 ? 'Child' : 'Children'}`}
                   </div>
                 </div>
-                
+
                 <div className="price-breakdown">
                   <div className="summary-item">
                     <div className="summary-label">Room Price</div>
@@ -872,17 +865,17 @@ const BookingPage = () => {
                     <div className="summary-value">${Math.round(totalPrice * 0.12)}</div>
                   </div>
                 </div>
-                
+
                 <div className="summary-total">
                   <div className="summary-label">Total</div>
                   <div className="summary-value">${Math.round(totalPrice * 1.12)}</div>
                 </div>
-                
+
                 <div className="cancellation-policy">
                   <h4>Cancellation Policy</h4>
                   <p>Free cancellation up to 48 hours before check-in. After that, the first night is non-refundable.</p>
                 </div>
-                
+
                 <div className="payment-policy">
                   <h4>Payment</h4>
                   <p>Full payment will be processed at the time of booking.</p>

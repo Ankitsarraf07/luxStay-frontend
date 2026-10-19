@@ -65,6 +65,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
+Before deploying, configure `REACT_APP_API_URL` in the hosting provider's build environment
+with the public API base URL, including `/api/v1`. See `.env.example` for the expected
+variables. Run `npm run build` locally to verify the production bundle before deployment.
+
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
